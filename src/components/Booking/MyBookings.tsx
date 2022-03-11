@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { IMyBookings } from '@/types/bookingTypes';
+import { IMyBookings } from '@/interfaces/bookingTypes';
 
 
 const MyBookings = () => {

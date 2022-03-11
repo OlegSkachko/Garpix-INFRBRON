@@ -1,4 +1,4 @@
-import IBookingNotice from '@/types'
+import IBookingNotice from '@/interfaces'
 import React, { ChangeEvent, useRef, useState } from 'react'
 
 const BookingNotice: React.FC<IBookingNotice> = (props: IBookingNotice) => {

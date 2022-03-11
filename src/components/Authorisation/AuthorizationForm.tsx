@@ -33,15 +33,19 @@ const AuthorizationForm = () => {
     console.log(access_token);
   }
 
+  function changeDisableButton() {
+    if(!validationErr.password && !validationErr.email && login.length && password.length) {
+      setIsDisable(false)
+    }
+  }
+
   function getLogin(e:ChangeEvent<HTMLInputElement>) {
     setIsDisable(true)
     let log = e.target.value.toLowerCase()
     let newValidationErr = checkValidationLogin(log,validationErr)
     setValidationErr(newValidationErr)
-      if(validationErr.password === '' && password.length) {
-        setIsDisable(false)
-      }
     setLogin(log)
+    changeDisableButton()
   }
 
   function getPassword(e:ChangeEvent<HTMLInputElement>) {
@@ -49,10 +53,8 @@ const AuthorizationForm = () => {
     let pass = e.target.value
     let newValidationErr = checkValidationPassword(pass, validationErr)
     setValidationErr(newValidationErr)
-     if(validationErr.email === '' && login.length ) {
-        setIsDisable(false)
-      }
     setPassword(pass)
+    changeDisableButton()
   }
 
 

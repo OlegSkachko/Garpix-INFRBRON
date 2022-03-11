@@ -40,7 +40,7 @@
     "@garpix/garpix-web-components-react": "^0.14.0",
     "@garpix/styles": "^1.1.0",
     "@storeon/localstorage": "^1.4.0",
-    "axios": "^0.21.1",
+    "axios": "^0.26.1",
     "classnames": "^2.3.1",
     "express": "^4.17.2",
     "postcss": "^8.2.4",

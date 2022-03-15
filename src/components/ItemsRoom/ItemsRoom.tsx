@@ -1,6 +1,6 @@
 import { apiGarpix } from '@/api/ApiGarpix'
 import useLoader from '@/hooks/useLoader'
-import IitemsRoom from '@/interfaces/IitemsRoom'
+import IitemsRoom from '@/interfaces/IItemsRoom'
 import React, { useState } from 'react'
 
 const ItemsRoom = () => {

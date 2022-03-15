@@ -13,6 +13,7 @@ export interface IRoomId {
   description: string
   officeId: IOfficeId
   isActive: boolean
+  color: string;
   id: number
 }
 

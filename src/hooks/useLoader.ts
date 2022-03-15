@@ -7,7 +7,7 @@ export default function useLoader (getData: any, api: any) {
     getData()
   }, [])
 
-  async function loadData() {
+  async function loadData () {
     setIsLoading(true)
     const data = await api()
     setIsLoading(false)

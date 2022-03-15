@@ -1,5 +1,4 @@
 import { IMyBookings } from '@/interfaces/Ibooking'
-import IitemsRoom from '@/interfaces/IitemsRoom'
 import axios from 'axios'
 
 class ApiGarpix {
@@ -43,6 +42,43 @@ class ApiGarpix {
           Authorization: `Bearer ${accessToken}`
         }
       }).then((response) => response.data.result)
+      .catch((error) => console.log(error))
+
+    return itemsRoom
+  }
+
+  async getUsers() {
+    const accessToken = localStorage.getItem('access_token')
+    const users = await axios.post('http://auth.garpixams.staging.garpix.com/api/v1/users/read', {},
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      }).then((response) => response.data.result)
+      .catch((error) => console.log(error))
+
+    return users
+  }
+
+  async getUsersAndBooking() {
+    const users = await this.getUsers()
+    const bookings = await this.getBookings()
+    return {users, bookings} 
+  }
+
+  async createNewInvite (userId:string,bookingId:string) {
+    const accessToken = localStorage.getItem('access_token')
+    const itemsRoom = await axios.post('http://garpixams.staging.garpix.com/api/v1/invites/create', 
+      {
+        userId: `${userId}`,
+        priority: "HIGH",
+        reserveId: { id: `${bookingId}`}
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      }).then((response) => response.data)
       .catch((error) => console.log(error))
 
     return itemsRoom

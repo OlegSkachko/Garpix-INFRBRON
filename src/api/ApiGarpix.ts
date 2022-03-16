@@ -47,7 +47,7 @@ class ApiGarpix {
     return itemsRoom
   }
 
-  async getUsers() {
+  async getUsers () {
     const accessToken = localStorage.getItem('access_token')
     const users = await axios.post('http://auth.garpixams.staging.garpix.com/api/v1/users/read', {},
       {
@@ -60,19 +60,19 @@ class ApiGarpix {
     return users
   }
 
-  async getUsersAndBooking() {
+  async getUsersAndBooking () {
     const users = await this.getUsers()
     const bookings = await this.getBookings()
-    return {users, bookings} 
+    return { users, bookings }
   }
 
-  async createNewInvite (userId:string,bookingId:string) {
+  async createNewInvite (userId: string, bookingId: string) {
     const accessToken = localStorage.getItem('access_token')
-    const itemsRoom = await axios.post('http://garpixams.staging.garpix.com/api/v1/invites/create', 
+    const itemsRoom = await axios.post('http://garpixams.staging.garpix.com/api/v1/invites/create',
       {
         userId: `${userId}`,
-        priority: "HIGH",
-        reserveId: { id: `${bookingId}`}
+        priority: 'HIGH',
+        reserveId: { id: `${bookingId}` }
       },
       {
         headers: {

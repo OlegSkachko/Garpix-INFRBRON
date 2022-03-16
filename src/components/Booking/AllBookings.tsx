@@ -8,7 +8,7 @@ const AllBookings = () => {
   const { isLoading, loadData } = useLoader(refreshMyBookings, apiGarpix.getBookings)
   const [myBookings, setMyBookings] = useState<IMyBookings[]>([])
 
-  async function refreshMyBookings () {
+  async function refreshMyBookings (): Promise<void> {
     const bookings = await loadData()
     if (bookings) setMyBookings(bookings)
   }

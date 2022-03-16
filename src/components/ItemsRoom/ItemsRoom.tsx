@@ -3,11 +3,11 @@ import useLoader from '@/hooks/useLoader'
 import IitemsRoom from '@/interfaces/IItemsRoom'
 import React, { useState } from 'react'
 
-const ItemsRoom = () => {
+const ItemsRoom: React.FC = () => {
   const { isLoading, loadData } = useLoader(refreshItemsRoom, apiGarpix.getItemsRoom)
   const [itemsRoom, setItemsRoom] = useState<IitemsRoom[]>([])
 
-  async function refreshItemsRoom () {
+  async function refreshItemsRoom (): Promise<void> {
     const itemsRoom = await loadData()
     setItemsRoom(itemsRoom)
   }

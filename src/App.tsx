@@ -3,8 +3,6 @@ import { Route, Routes } from 'react-router-dom'
 import Combine from './pages/Combine'
 import { PATHS } from './const'
 import './App.css'
-import Invite from './components/Invite/Invite'
-import AuthorizationForm from './components/Authorization/AuthorizationForm'
 
 const App = ({ context }: any): React.ReactElement => (
   <Routes>

@@ -1,6 +1,6 @@
 import { IRoomId } from './Ibooking'
 
-export default interface IitemsRoom {
+export default interface IItemsRoom {
   count: number
   created: string
   description: string

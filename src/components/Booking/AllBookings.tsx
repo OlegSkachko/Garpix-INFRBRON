@@ -4,13 +4,13 @@ import { apiGarpix } from '@/api/ApiGarpix'
 import { correctTime } from '../../helpers'
 import useLoader from '@/hooks/useLoader'
 
-const AllBookings = () => {
+const AllBookings: React.FC = () => {
   const { isLoading, loadData } = useLoader(refreshMyBookings, apiGarpix.getBookings)
   const [myBookings, setMyBookings] = useState<IMyBookings[]>([])
 
   async function refreshMyBookings (): Promise<void> {
     const bookings = await loadData()
-    if (bookings) setMyBookings(bookings)
+    setMyBookings(bookings)
   }
 
   return (

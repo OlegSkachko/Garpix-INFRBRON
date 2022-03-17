@@ -15,7 +15,7 @@ export default function usePagination (api: any): IUsePagTypes {
   const memoizedValue = useMemo(() => computePag(size, pageNumber, filter), [size, pageNumber, filter])
   const { isLoading, loadData } = useLoader(refresh, api, memoizedValue)
 
-  function computePag(size: number, pageNumber: number, filter: string): IPagination {
+  function computePag (size: number, pageNumber: number, filter: string): IPagination {
     return { pageNumber, size, sort: [filter] }
   }
 

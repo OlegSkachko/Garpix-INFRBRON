@@ -1,4 +1,4 @@
-import { IconTypes } from "./IIcon"
+import { IconTypes } from './IIcon'
 
 export interface IMyBookings {
   title: string

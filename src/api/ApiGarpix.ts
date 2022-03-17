@@ -2,7 +2,6 @@ import { IMyBookings } from '@/interfaces/Ibooking'
 import IItemsRoom from '@/interfaces/IItemsRoom'
 import IPagination from '@/interfaces/IPagination'
 
-
 import IUser, { IUsersBookings } from '@/interfaces/IUser'
 import axios from 'axios'
 
@@ -29,8 +28,8 @@ class ApiGarpix {
   async getBookings (pagination: IPagination): Promise<IMyBookings[]> {
     const accessToken = localStorage.getItem('access_token') ?? ''
     const bookings = await axios.post('http://garpixams.staging.garpix.com/api/v1/reserves/read',
-    {...pagination} 
-    ,
+      { ...pagination }
+      ,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`
@@ -72,7 +71,7 @@ class ApiGarpix {
     const bookings = await this.getBookings({
       pageNumber: 1,
       size: 5,
-      sort: ["title,asc"]
+      sort: ['title,asc']
     })
     return { users, bookings }
   }

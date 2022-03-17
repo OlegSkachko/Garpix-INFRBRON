@@ -2,7 +2,6 @@ import React from 'react'
 import IIcon from '@/interfaces/IIcon'
 
 const Icon: React.FC<IIcon> = ({ value }: IIcon) => {
-  
   if (value === 'PRESENTATION') {
     return <>🎥</>
   }

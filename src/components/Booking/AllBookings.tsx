@@ -1,21 +1,37 @@
-import React, { useState } from 'react'
-import { IMyBookings } from '@/interfaces/Ibooking'
+import React from 'react'
 import { apiGarpix } from '@/api/ApiGarpix'
 import { correctTime } from '../../helpers'
-import useLoader from '@/hooks/useLoader'
+import Icon from '../Icon/Icon'
+import Pagination from '../Pagination/Pagination'
+import usePagination from '@/hooks/usePagination'
+
 
 const AllBookings: React.FC = () => {
-  const { isLoading, loadData } = useLoader(refreshMyBookings, apiGarpix.getBookings)
-  const [myBookings, setMyBookings] = useState<IMyBookings[]>([])
-
-  async function refreshMyBookings (): Promise<void> {
-    const bookings = await loadData()
-    setMyBookings(bookings)
-  }
+  const {arrayPages, 
+    setPageNumber, 
+    pageNumber,  
+    refTotal, 
+    totalItems, 
+    setSize, 
+    setFilter, 
+    isLoading, 
+    myBookings,
+    refresh
+  } = usePagination(apiGarpix.getBookings)
+ 
 
   return (
     <div>
-      <button onClick={refreshMyBookings}>обновить</button>
+      <Pagination 
+        arrayPages= {arrayPages}
+        setPageNumber = {(value)=>setPageNumber(value)}
+        pageNumber = {pageNumber}
+        refTotal = {refTotal}
+        totalItems={totalItems}
+        amount = {(e)=>setSize(+e.target.value)}
+        sort={(e)=>setFilter(e.target.value)}
+      />
+      <button onClick={refresh}>обновить</button>
       <div>
         {isLoading && <h2>идет загрузка...</h2>}
         {myBookings.length < 1
@@ -25,14 +41,17 @@ const AllBookings: React.FC = () => {
             const finish = correctTime(booking.endDate)
             return (
               <fieldset key={booking.id}>
-                <h3>{booking.roomId.title}</h3>
+                <h3>
+                  <Icon value={booking.reason}/> 
+                  {booking.roomId.title}
+                </h3>
                 <h5>{booking.roomId.description}</h5>
                 Начало в {start} <br />
                 Конец в {finish} <br />
               </fieldset>
             )
           })}
-      </div>
+      </div>   
     </div>
   )
 }

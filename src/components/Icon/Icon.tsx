@@ -2,10 +2,11 @@ import React from 'react'
 import IIcon from '@/interfaces/IIcon'
 
 const Icon: React.FC<IIcon> = ({ value }: IIcon) => {
-  if (value === 'выступление') {
+  
+  if (value === 'PRESENTATION') {
     return <>🎥</>
   }
-  if (value === 'переговоры') {
+  if (value === 'DISCUSSION') {
     return <>🗣</>
   }
   if (value === 'чаепитие') {
@@ -14,10 +15,10 @@ const Icon: React.FC<IIcon> = ({ value }: IIcon) => {
   if (value === 'поздравление') {
     return <>🥂</>
   }
-  if (value === 'созвон') {
+  if (value === 'MEETING') {
     return <>📱</>
   }
-  return <></>
+  return <>🥂</>
 }
 
 export default Icon

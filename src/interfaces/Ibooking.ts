@@ -1,3 +1,5 @@
+import { IconTypes } from "./IIcon"
+
 export interface IMyBookings {
   title: string
   roomId: IRoomId
@@ -6,6 +8,7 @@ export interface IMyBookings {
   endDate: string
   isActive: boolean
   id: number
+  reason: IconTypes
 }
 
 export interface IRoomId {

@@ -1,11 +1,11 @@
 import { apiGarpix } from '@/api/ApiGarpix'
 import useLoader from '@/hooks/useLoader'
-import IitemsRoom from '@/interfaces/IItemsRoom'
+import IItemsRoom from '@/interfaces/IItemsRoom'
 import React, { useState } from 'react'
 
 const ItemsRoom: React.FC = () => {
   const { isLoading, loadData } = useLoader(refreshItemsRoom, apiGarpix.getItemsRoom)
-  const [itemsRoom, setItemsRoom] = useState<IitemsRoom[]>([])
+  const [itemsRoom, setItemsRoom] = useState<IItemsRoom[]>([])
 
   async function refreshItemsRoom (): Promise<void> {
     const itemsRoom = await loadData()

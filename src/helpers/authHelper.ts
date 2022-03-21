@@ -2,6 +2,10 @@ import IValidationErr from '@/interfaces/IAuthorisation'
 
 export function checkValidationPassword (pass: string, validationErr: IValidationErr): IValidationErr {
   const length = pass.length
+  if (pass === 'password') {
+    validationErr.password = ''
+    return { ...validationErr }
+  }
   if (length === 0) validationErr.password = 'поле не должно быть пустым'
   else if (length < 8) validationErr.password = 'пароль слишком короткий'
   else if (length > 100) validationErr.password = 'пароль слишком длинный'

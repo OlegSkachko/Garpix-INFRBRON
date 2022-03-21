@@ -34,11 +34,15 @@
     ]
   },
   "dependencies": {
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
     "@garpix/base-api": "^1.2.1",
     "@garpix/fetcher": "^4.0.0",
     "@garpix/garpix-web-components": "^0.14.0",
     "@garpix/garpix-web-components-react": "^0.14.0",
     "@garpix/styles": "^1.1.0",
+    "@mui/icons-material": "^5.5.1",
+    "@mui/material": "^5.5.1",
     "@storeon/localstorage": "^1.4.0",
     "axios": "^0.26.1",
     "classnames": "^2.3.1",

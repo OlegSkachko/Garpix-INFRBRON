@@ -1,7 +1,8 @@
 import React, { ChangeEvent, useState } from 'react'
 import IValidationErr from '@/interfaces/IAuthorisation'
-import { checkValidationLogin, checkValidationPassword } from '../../helpers/authorizationHelper'
+import { checkValidationLogin, checkValidationPassword } from '../../helpers/authHelper'
 import { apiGarpix } from '@/api/ApiGarpix'
+import { AppBar, Toolbar, Typography } from '@mui/material'
 
 const AuthorizationForm: React.FC = () => {
   const [login, setLogin] = useState<string>('')
@@ -13,6 +14,10 @@ const AuthorizationForm: React.FC = () => {
     await apiGarpix.auth(login, password)
     setLogin('')
     setPassword('')
+    const token = localStorage.getItem('access_token')
+    if (token !== undefined || token !== '') {
+      window.location.reload()
+    }
   }
 
   function getInput (e: ChangeEvent<HTMLInputElement>, type: string): void {
@@ -37,24 +42,33 @@ const AuthorizationForm: React.FC = () => {
   }
 
   return (
-    <div>
-      <h3>Sign in</h3>
-      Email address
-      <h5>{validationErr.email}</h5>
-      <input
-        value={login}
-        onChange={(e) => getInput(e, 'login')}
-      />
-      <br /><br />
-      Password
-      <h5>{validationErr.password}</h5>
-      <input
-        value={password}
-        type='password'
-        onChange={(e) => getInput(e, 'password')}
-      />
-      <button disabled={isDisable} onClick={submit}>авторизоваться</button>
-    </div>
+    <>
+      <AppBar position='static'>
+        <Toolbar>
+          <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
+            Garpix
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <div>
+        <h3>Sign in</h3>
+        Email address
+        <h5>{validationErr.email}</h5>
+        <input
+          value={login}
+          onChange={(e) => getInput(e, 'login')}
+        />
+        <br /><br />
+        Password
+        <h5>{validationErr.password}</h5>
+        <input
+          value={password}
+          type='password'
+          onChange={(e) => getInput(e, 'password')}
+        />
+        <button disabled={isDisable} onClick={submit}>авторизоваться</button>
+      </div>
+    </>
 
   )
 }

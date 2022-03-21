@@ -1,4 +1,4 @@
-import { getPagesArray } from '@/helpers/page'
+import { getPagesArray } from '@/helpers/pageHelper'
 import { IMyBookings } from '@/interfaces/Ibooking'
 import IPagination, { IUsePagTypes } from '@/interfaces/IPagination'
 import { useState, useEffect, useMemo, useRef } from 'react'

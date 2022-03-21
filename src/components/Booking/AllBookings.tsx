@@ -1,6 +1,6 @@
 import React from 'react'
 import { apiGarpix } from '@/api/ApiGarpix'
-import { correctTime } from '../../helpers'
+import { correctTime } from '../../helpers/timeHelper'
 import Icon from '../Icon/Icon'
 import Pagination from '../Pagination/Pagination'
 import usePagination from '@/hooks/usePagination'

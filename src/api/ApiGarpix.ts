@@ -1,7 +1,6 @@
 import { IMyBookings } from '@/interfaces/Ibooking'
 import IItemsRoom from '@/interfaces/IItemsRoom'
 import IPagination from '@/interfaces/IPagination'
-
 import IUser, { IUsersBookings } from '@/interfaces/IUser'
 import axios from 'axios'
 
@@ -25,7 +24,26 @@ class ApiGarpix {
       .catch((error) => console.log(error))
   }
 
-  async getBookings (pagination: IPagination): Promise<IMyBookings[]> {
+  async logout (): Promise<any> {
+    const refreshToken = localStorage.getItem('refresh_token') ?? ''
+    const data = await axios.post(
+      'http://auth.garpixams.staging.garpix.com/api/v1/logout', {
+        refreshToken: `${refreshToken}`
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then((response) => response.status)
+      .catch((error) => {
+        console.log(error)
+        return 400
+      })
+
+    return data
+  }
+
+  async getBookings (pagination?: IPagination): Promise<IMyBookings[]> {
     const accessToken = localStorage.getItem('access_token') ?? ''
     const bookings = await axios.post('http://garpixams.staging.garpix.com/api/v1/reserves/read',
       { ...pagination }
@@ -66,13 +84,9 @@ class ApiGarpix {
     return users
   }
 
-  async getUsersAndBooking (): Promise<IUsersBookings> {
+  async getUsersAndBooking (pagination?: IPagination): Promise<IUsersBookings> {
     const users = await this.getUsers()
-    const bookings = await this.getBookings({
-      pageNumber: 1,
-      size: 5,
-      sort: ['title,asc']
-    })
+    const bookings = await this.getBookings(pagination)
     return { users, bookings }
   }
 

@@ -12,15 +12,25 @@ const Invite: React.FC = () => {
 
   async function getUsers (): Promise<void> {
     setIsLoading(true)
-    const { users, bookings } = await apiGarpix.getUsersAndBooking()
+    const { users, bookings } = await apiGarpix.getUsersAndBooking({
+      pageNumber: 1,
+      size: 10,
+      sort: ['title,asc']
+    })
+    // const users = await apiGarpix.getUsers()
+    // const bookings = await apiGarpix.getBookings({pageNumber: 1,
+    //   size: 10,
+    //   sort: ['title,asc']
+    // })
     setIsLoading(false)
     setUsers(users)
-    setBookings(bookings)
+    setBookings(bookings?.result)
     console.log(bookings)
   }
 
   async function createInvitation (): Promise<void> {
-    await apiGarpix.createNewInvite(userId, bookingId)
+    const invite = await apiGarpix.createNewInvite(userId, bookingId)
+    console.log(invite)
   }
 
   function inviteUser (e: ChangeEvent<HTMLSelectElement>, data: string): void {

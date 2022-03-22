@@ -12,12 +12,12 @@ const App = (): React.ReactElement => (
   <Routes>
     <Route path='/' element={<CustomAppBar />}>
       <Route index element={<>Главная</>} />
-      <Route path='office' element={<Offices/>} />
+      <Route path='office' element={<Offices />} />
       <Route path='reserves' element={<AllBookings />} />
       <Route path='item-room' element={<ItemsRoom />} />
       <Route path='invite' element={<Invite />} />
       <Route path='notice' element={<BookingNotice startDate='2022-03-22T00:00:00.924Z' endDate='2022-03-22T01:00:00.924Z' />} />
-      <Route path='*' element={<Navigate to="/" replace />} />
+      <Route path='*' element={<Navigate to='/' replace />} />
     </Route>
   </Routes>
 )

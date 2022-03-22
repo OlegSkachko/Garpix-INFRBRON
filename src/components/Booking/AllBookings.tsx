@@ -34,11 +34,10 @@ const AllBookings: React.FC = () => {
       />
       <button onClick={refresh}>обновить</button>
       <div>
-        {isLoading && 
-          <Box sx={{ display: 'flex' , justifyContent:'center'}}>
+        {isLoading &&
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <CircularProgress />
-         </Box>
-        }
+          </Box>}
         {data.length < 1
           ? <h2>на данный момент список бронирований пуст</h2>
           : data.map((booking) => {

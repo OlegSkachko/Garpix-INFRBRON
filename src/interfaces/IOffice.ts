@@ -1,5 +1,5 @@
 export interface IOffice {
-    title: string
-    address: string
-    id: number
+  title: string
+  address: string
+  id: number
 }

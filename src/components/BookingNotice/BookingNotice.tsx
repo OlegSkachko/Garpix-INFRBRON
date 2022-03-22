@@ -23,32 +23,32 @@ const BookingNotice: React.FC<IBookingNotice> = (props: IBookingNotice) => {
       ? new Date(startDate.getTime() - choosenTime)
       : new Date(endDate.getTime() - choosenTime)
 
-    const timer = difference.getTime()- new Date().getTime()
+    const timer = difference.getTime() - new Date().getTime()
     if (difference.getTime() < new Date().getTime()) {
       setAlert(true)
       return
     }
-    setTimeout(()=>{
+    setTimeout(() => {
       setAlert(true)
-    },timer)
+    }, timer)
   }
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
-      return;
+      return
     }
-    setAlert(false);
-  };
+    setAlert(false)
+  }
 
   return (
 
     <div>
-      { alert &&   
-      <Snackbar anchorOrigin={{ vertical:'bottom', horizontal:'right' }} open={alert} autoHideDuration={20000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%', background:'lightgreen', color:"darkgreen" }}>
-          У вас скоро собрание!
-        </Alert>
-      </Snackbar>}
+      {alert &&
+        <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} open={alert} autoHideDuration={20000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity='success' sx={{ width: '100%', background: 'lightgreen', color: 'darkgreen' }}>
+            У вас скоро собрание!
+          </Alert>
+        </Snackbar>}
       Бронирование:Главная <br />
       Вы забронировали переговорную с 00.00 до 01.00 <br />
       Напомнить до:

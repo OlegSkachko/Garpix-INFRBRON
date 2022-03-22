@@ -32,13 +32,12 @@ const Offices: React.FC = () => {
         sort={(e) => setFilter(e.target.value)}
       />
       <button onClick={refresh}>обновить</button>
-      <NewOffice></NewOffice>
+      <NewOffice />
       <div>
-        {isLoading && 
-          <Box sx={{ display: 'flex' , justifyContent:'center'}}>
+        {isLoading &&
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <CircularProgress />
-         </Box>
-        }
+          </Box>}
         {data.length < 1
           ? <h2>на данный момент доступных офисов нет</h2>
           : data.map((office) => {

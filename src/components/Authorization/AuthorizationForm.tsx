@@ -5,7 +5,6 @@ import { apiGarpix } from '@/api/ApiGarpix'
 import { AppBar, Box, Toolbar, Typography } from '@mui/material'
 import './index.css'
 
-
 const AuthorizationForm: React.FC = () => {
   const [login, setLogin] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -14,7 +13,7 @@ const AuthorizationForm: React.FC = () => {
 
   async function submit (): Promise<void> {
     await apiGarpix.auth(login, password)
-      window.location.reload()
+    window.location.reload()
   }
 
   function getInput (e: ChangeEvent<HTMLInputElement>, type: string): void {
@@ -38,7 +37,7 @@ const AuthorizationForm: React.FC = () => {
     }
   }
 
-  async function refresh() {
+  async function refresh () {
     await apiGarpix.refresh()
     window.location.reload()
   }
@@ -52,30 +51,30 @@ const AuthorizationForm: React.FC = () => {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Box sx={{ display: 'flex' , justifyContent:'center', alignItems:'center' }}>
-      <div>
-       <div className='garpix'></div>
-        <h3>Sign in</h3>
-        Email address
-        <h5>{validationErr.email}</h5>
-        <input
-          value={login}
-          onChange={(e) => getInput(e, 'login')}
-        />
-        <br /><br />
-        Password
-        <h5>{validationErr.password}</h5>
-        <input
-          value={password}
-          type='password'
-          onChange={(e) => getInput(e, 'password')}
-        />
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <div>
-        <button disabled={isDisable} onClick={submit}>войти</button>
-          <button onClick={refresh}>авторизоваться</button>
+          <div className='garpix' />
+          <h3>Sign in</h3>
+          Email address
+          <h5>{validationErr.email}</h5>
+          <input
+            value={login}
+            onChange={(e) => getInput(e, 'login')}
+          />
+          <br /><br />
+          Password
+          <h5>{validationErr.password}</h5>
+          <input
+            value={password}
+            type='password'
+            onChange={(e) => getInput(e, 'password')}
+          />
+          <div>
+            <button disabled={isDisable} onClick={submit}>войти</button>
+            <button onClick={refresh}>авторизоваться</button>
+          </div>
+
         </div>
-         
-      </div>
       </Box>
     </>
 

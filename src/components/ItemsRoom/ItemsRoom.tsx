@@ -21,7 +21,6 @@ const ItemsRoom: React.FC = () => {
     refresh
   }: IUsePagTypes = usePagination(apiGarpix.getItemsRoom, 'IItemsRoom')
 
-
   return (
     <div>
       <Pagination
@@ -32,15 +31,14 @@ const ItemsRoom: React.FC = () => {
         totalItems={totalItems}
         amount={(e) => setSize(+e.target.value)}
         sort={(e) => setFilter(e.target.value)}
-        item={true}
+        item
       />
       <button onClick={refresh}>обновить</button>
       <div>
-        {isLoading && 
-          <Box sx={{ display: 'flex' , justifyContent:'center'}}>
+        {isLoading &&
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <CircularProgress />
-          </Box>
-        }
+          </Box>}
         {data.length < 1
           ? <h2>на данный момент инвентарь отсутствует</h2>
           : data.map((item) => {

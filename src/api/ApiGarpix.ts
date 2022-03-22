@@ -37,11 +37,10 @@ class ApiGarpix {
         }
       }).then((response) => {
       const data = response.data.result
-      if(!!data) {
+      if (data) {
         localStorage.setItem('access_token', data.access_token)
         localStorage.setItem('refresh_token', data.refresh_token)
       }
-
     })
       .catch((error) => console.log(error))
   }
@@ -76,8 +75,8 @@ class ApiGarpix {
         }
       }).then((response) => response.data)
       .catch((error) => console.log(error))
-      console.log(offices);
-      
+    console.log(offices)
+
     return offices
   }
 
@@ -86,7 +85,7 @@ class ApiGarpix {
     const itemsRoom = await axios.post('http://garpixams.staging.garpix.com/api/v1/offices/create',
       {
         title: `${title}`,
-        address: `${address}`,
+        address: `${address}`
       },
       {
         headers: {
@@ -109,8 +108,8 @@ class ApiGarpix {
         }
       }).then((response) => response.data)
       .catch((error) => console.log(error))
-      console.log(bookings);
-      
+    console.log(bookings)
+
     return bookings
   }
 
@@ -118,7 +117,7 @@ class ApiGarpix {
     const accessToken = localStorage.getItem('access_token') ?? ''
     const itemsRoom = await axios.post('http://garpixams.staging.garpix.com/api/v1/room_items/read',
       { ...pagination }
-    ,
+      ,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`

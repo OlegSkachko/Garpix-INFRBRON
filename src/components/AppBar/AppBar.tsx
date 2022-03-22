@@ -24,7 +24,6 @@ const CustomAppBar: React.FC = () => {
     }
   })
 
-
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

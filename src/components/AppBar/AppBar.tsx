@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useEffect } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -14,16 +14,16 @@ import { apiGarpix } from '@/api/ApiGarpix'
 import AuthorizationForm from '../Authorization/AuthorizationForm'
 
 const CustomAppBar: React.FC = () => {
-  React.useEffect(() => {
+  const [auth, setAuth] = React.useState(true)
+  const [open, setOpen] = React.useState(false)
+
+  useEffect(() => {
     const access = localStorage.getItem('access_token')
-    const refresh = localStorage.getItem('refresh_token')
-    if (access === '' || refresh === '' || access === undefined || refresh === undefined) {
+    if (access === '' || access === null) {
       setAuth(false)
     }
   })
 
-  const [auth, setAuth] = React.useState(true)
-  const [open, setOpen] = React.useState(false)
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 
@@ -45,7 +45,6 @@ const CustomAppBar: React.FC = () => {
       setAuth(false)
       setOpen(false)
       localStorage.setItem('access_token', '')
-      localStorage.setItem('refresh_token', '')
     }
   }
 

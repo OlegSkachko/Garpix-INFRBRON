@@ -1,4 +1,5 @@
 import IBookingNotice from '@/interfaces'
+import { Alert, Snackbar } from '@mui/material'
 import React, { ChangeEvent, useRef, useState } from 'react'
 
 const BookingNotice: React.FC<IBookingNotice> = (props: IBookingNotice) => {
@@ -7,6 +8,7 @@ const BookingNotice: React.FC<IBookingNotice> = (props: IBookingNotice) => {
   const refSelect = useRef<HTMLSelectElement|null>(null)
   const startDate = new Date(props.startDate)
   const endDate = new Date(props.endDate)
+  const [alert, setAlert] = useState<boolean>(false)
 
   function chooseTime (e: ChangeEvent<HTMLInputElement>): void {
     const time = e.target.value
@@ -21,13 +23,32 @@ const BookingNotice: React.FC<IBookingNotice> = (props: IBookingNotice) => {
       ? new Date(startDate.getTime() - choosenTime)
       : new Date(endDate.getTime() - choosenTime)
 
+    const timer = difference.getTime()- new Date().getTime()
     if (difference.getTime() < new Date().getTime()) {
-      alert('напоминаю!')
+      setAlert(true)
+      return
     }
+    setTimeout(()=>{
+      setAlert(true)
+    },timer)
   }
 
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setAlert(false);
+  };
+
   return (
+
     <div>
+      { alert &&   
+      <Snackbar anchorOrigin={{ vertical:'bottom', horizontal:'right' }} open={alert} autoHideDuration={20000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%', background:'lightgreen', color:"darkgreen" }}>
+          У вас скоро собрание!
+        </Alert>
+      </Snackbar>}
       Бронирование:Главная <br />
       Вы забронировали переговорную с 00.00 до 01.00 <br />
       Напомнить до:

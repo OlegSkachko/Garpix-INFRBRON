@@ -1,10 +1,8 @@
 .navlink {
-    text-decoration:none;
+  text-decoration: none;
 }
 
 .active {
-    text-decoration:none;
-    color: #01a03e;
+  text-decoration: none;
+  color: #01a03e;
 }
-
-

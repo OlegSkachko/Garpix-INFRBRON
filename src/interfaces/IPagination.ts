@@ -8,6 +8,7 @@ export interface IPagTypes {
   totalItems: number
   amount: (value: any) => any
   sort: (value: any) => any
+  item?: boolean
 }
 
 export interface IUsePagTypes {
@@ -19,7 +20,7 @@ export interface IUsePagTypes {
   setSize: (value: any) => any
   setFilter: (value: any) => any
   isLoading: boolean
-  myBookings: IMyBookings[]
+  data: any[]
   refresh: () => Promise<void>
 }
 

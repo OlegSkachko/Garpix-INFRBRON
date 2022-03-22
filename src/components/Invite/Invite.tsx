@@ -17,14 +17,9 @@ const Invite: React.FC = () => {
       size: 10,
       sort: ['title,asc']
     })
-    // const users = await apiGarpix.getUsers()
-    // const bookings = await apiGarpix.getBookings({pageNumber: 1,
-    //   size: 10,
-    //   sort: ['title,asc']
-    // })
     setIsLoading(false)
     setUsers(users)
-    setBookings(bookings?.result)
+    setBookings(bookings)
     console.log(bookings)
   }
 

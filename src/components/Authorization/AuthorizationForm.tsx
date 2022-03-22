@@ -2,7 +2,9 @@ import React, { ChangeEvent, useState } from 'react'
 import IValidationErr from '@/interfaces/IAuthorisation'
 import { checkValidationLogin, checkValidationPassword } from '../../helpers/authHelper'
 import { apiGarpix } from '@/api/ApiGarpix'
-import { AppBar, Toolbar, Typography } from '@mui/material'
+import { AppBar, Box, Toolbar, Typography } from '@mui/material'
+import './index.css'
+
 
 const AuthorizationForm: React.FC = () => {
   const [login, setLogin] = useState<string>('')
@@ -12,12 +14,7 @@ const AuthorizationForm: React.FC = () => {
 
   async function submit (): Promise<void> {
     await apiGarpix.auth(login, password)
-    setLogin('')
-    setPassword('')
-    const token = localStorage.getItem('access_token')
-    if (token !== undefined || token !== '') {
       window.location.reload()
-    }
   }
 
   function getInput (e: ChangeEvent<HTMLInputElement>, type: string): void {
@@ -41,6 +38,11 @@ const AuthorizationForm: React.FC = () => {
     }
   }
 
+  async function refresh() {
+    await apiGarpix.refresh()
+    window.location.reload()
+  }
+
   return (
     <>
       <AppBar position='static'>
@@ -50,7 +52,9 @@ const AuthorizationForm: React.FC = () => {
           </Typography>
         </Toolbar>
       </AppBar>
+      <Box sx={{ display: 'flex' , justifyContent:'center', alignItems:'center' }}>
       <div>
+       <div className='garpix'></div>
         <h3>Sign in</h3>
         Email address
         <h5>{validationErr.email}</h5>
@@ -66,8 +70,13 @@ const AuthorizationForm: React.FC = () => {
           type='password'
           onChange={(e) => getInput(e, 'password')}
         />
-        <button disabled={isDisable} onClick={submit}>авторизоваться</button>
+        <div>
+        <button disabled={isDisable} onClick={submit}>войти</button>
+          <button onClick={refresh}>авторизоваться</button>
+        </div>
+         
       </div>
+      </Box>
     </>
 
   )

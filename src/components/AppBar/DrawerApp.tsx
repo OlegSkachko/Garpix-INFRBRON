@@ -39,6 +39,11 @@ const DrawerApp = (props) => {
             <ListItemText primary='Главная' />
           </ListItem>
         </NavLink>
+        <NavLink to='/office' style={{ textDecoration: 'none' }}>
+          <ListItem button>
+            <ListItemText primary='Офисы' />
+          </ListItem>
+        </NavLink>
         <NavLink to='/notice' style={{ textDecoration: 'none' }}>
           <ListItem button>
             <ListItemText primary='Уведомления' />

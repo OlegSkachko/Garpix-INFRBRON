@@ -9,7 +9,8 @@ const Pagination: React.FC<IPagTypes> = (props: IPagTypes) => {
     refTotal,
     totalItems,
     amount,
-    sort
+    sort,
+    item
   } = props
 
   return (
@@ -43,7 +44,7 @@ const Pagination: React.FC<IPagTypes> = (props: IPagTypes) => {
       <select ref={refTotal} onChange={sort}>
         <option value='roomId.title,asc'>по названию</option>
         <option value='roomId.description,asc'>по описанию</option>
-        <option value='startDate,asc'>по дате</option>
+        <option value={`${item ? 'created,asc':'startDate,asc'}`}>по дате</option>
       </select>
       <br />
       <br />

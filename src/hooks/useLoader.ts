@@ -11,7 +11,8 @@ export default function useLoader (getData: any, api: any, pag?: IPagination): {
   async function loadData (): Promise<any> {
     setIsLoading(true)
     const data = await api(pag)
-    setIsLoading(false)
+    setTimeout(()=>setIsLoading(false),700)
+    
     return data
   }
 

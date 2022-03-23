@@ -2,6 +2,7 @@ import { IMyBookings } from '@/interfaces/Ibooking'
 import IItemsRoom from '@/interfaces/IItemsRoom'
 import { IOffice } from '@/interfaces/IOffice'
 import IPagination from '@/interfaces/IPagination'
+import IRoom from '@/interfaces/IRoom'
 import IUser, { IUsersBookings } from '@/interfaces/IUser'
 import axios from 'axios'
 
@@ -27,6 +28,8 @@ class ApiGarpix {
 
   async refresh (): Promise<void> {
     const refreshToken = localStorage.getItem('refresh_token') ?? ''
+    console.log("refreshToken", refreshToken);
+    
     await axios.post(
       'http://auth.garpixams.staging.garpix.com/api/v1/refresh', {
         refreshToken: `${refreshToken}`
@@ -66,7 +69,7 @@ class ApiGarpix {
 
   async getOffice (pagination?: IPagination): Promise<IOffice[]> {
     const accessToken = localStorage.getItem('access_token') ?? ''
-    const offices = await axios.post('http://garpixams.staging.garpix.com/api/v1/reserves/read',
+    const offices = await axios.post('http://garpixams.staging.garpix.com/api/v1/offices/read',
       { ...pagination }
       ,
       {
@@ -82,7 +85,7 @@ class ApiGarpix {
 
   async createNewOffice (title: string, address: string): Promise<IOffice> {
     const accessToken = localStorage.getItem('access_token') ?? ''
-    const itemsRoom = await axios.post('http://garpixams.staging.garpix.com/api/v1/offices/create',
+    const newOffice = await axios.post('http://garpixams.staging.garpix.com/api/v1/offices/create',
       {
         title: `${title}`,
         address: `${address}`
@@ -93,8 +96,43 @@ class ApiGarpix {
         }
       }).then((response) => response.data)
       .catch((error) => console.log(error))
+      console.log(newOffice);
+    return newOffice
+  }
 
-    return itemsRoom
+  async getRooms (pagination?: IPagination): Promise<IRoom[]> {
+    const accessToken = localStorage.getItem('access_token') ?? ''
+    const offices = await axios.post('http://garpixams.staging.garpix.com/api/v1/rooms/read',
+      { ...pagination }
+      ,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      }).then((response) => response.data)
+      .catch((error) => console.log(error))
+    console.log(offices)
+
+    return offices
+  }
+
+  async createNewRoom(title: string, description: string, isActive: boolean, color:string): Promise<IRoom> {
+    const accessToken = localStorage.getItem('access_token') ?? ''
+    const newRoom = await axios.post('http://garpixams.staging.garpix.com/api/v1/rooms/create',
+      {
+        title: `${title}`,
+        description: `${description}`,
+        isActive: `${isActive}`,
+        color: `${color}`,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      }).then((response) => response.data)
+      .catch((error) => console.log(error))
+      console.log(newRoom);
+    return newRoom
   }
 
   async getBookings (pagination?: IPagination): Promise<IMyBookings[]> {

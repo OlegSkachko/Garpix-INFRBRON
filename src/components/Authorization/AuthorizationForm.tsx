@@ -73,7 +73,6 @@ const AuthorizationForm: React.FC = () => {
             <button disabled={isDisable} onClick={submit}>войти</button>
             <button onClick={refresh}>авторизоваться</button>
           </div>
-
         </div>
       </Box>
     </>

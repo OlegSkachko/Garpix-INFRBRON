@@ -5,6 +5,7 @@ import { useState, useEffect, useMemo, useRef } from 'react'
 import IItemsRoom from '@/interfaces/IItemsRoom'
 import useLoader from './useLoader'
 import { IOffice } from '@/interfaces/IOffice'
+import IRoom from '@/interfaces/IRoom'
 
 export default function usePagination (api: any, type?: string): IUsePagTypes {
   const [size, setSize] = useState<number>(1)
@@ -13,6 +14,7 @@ export default function usePagination (api: any, type?: string): IUsePagTypes {
   const [arrayPages, setArrayPages] = useState<number[]>([0])
   const [totalItems, setTotalItems] = useState<number>(1)
   let data, setData
+  if (type = 'IRoom') [data, setData] = useState<IRoom[]>([])
   if (type = 'IOffice') [data, setData] = useState<IOffice[]>([])
   if (type = 'IMyBookings') [data, setData] = useState<IMyBookings[]>([])
   if (type = 'IItemsRoom') [data, setData] = useState<IItemsRoom[]>([])

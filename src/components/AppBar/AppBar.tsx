@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect, MouseEvent } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -14,8 +14,9 @@ import { apiGarpix } from '@/api/ApiGarpix'
 import AuthorizationForm from '../Authorization/AuthorizationForm'
 
 const CustomAppBar: React.FC = () => {
-  const [auth, setAuth] = React.useState(true)
-  const [open, setOpen] = React.useState(false)
+  const [auth, setAuth] = useState<boolean>(true)
+  const [open, setOpen] = useState<boolean>(false)
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 
   useEffect(() => {
     const access = localStorage.getItem('access_token')
@@ -23,27 +24,17 @@ const CustomAppBar: React.FC = () => {
       setAuth(false)
     }
   })
-
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAuth(event.target.checked)
-  }
-
-  const handleMenu = (event: React.MouseEvent<HTMLElement>): void => {
+  const handleMenu = (event: MouseEvent<HTMLElement>): void => {
     setAnchorEl(event.currentTarget)
   }
-
   const handleClose = (): void => {
     setAnchorEl(null)
   }
-
   async function logout (): Promise<void> {
     const status = await apiGarpix.logout()
     if (status === 200 || status === 400) {
       setAuth(false)
-      setOpen(false)
-      localStorage.setItem('access_token', '')
+      localStorage.clear()
     }
   }
 
@@ -57,10 +48,7 @@ const CustomAppBar: React.FC = () => {
             <AppBar position='static'>
               <Toolbar>
                 <IconButton
-                  size='large'
-                  edge='start'
                   color='inherit'
-                  aria-label='menu'
                   sx={{ mr: 2 }}
                 >
                   <MenuIcon onClick={() => setOpen(true)} />
@@ -72,23 +60,14 @@ const CustomAppBar: React.FC = () => {
                   <div>
                     <IconButton
                       size='large'
-                      aria-label='account of current user'
-                      aria-controls='menu-appbar'
-                      aria-haspopup='true'
                       onClick={handleMenu}
                       color='inherit'
                     >
                       <AccountCircle />
                     </IconButton>
                     <Menu
-                      id='menu-appbar'
                       anchorEl={anchorEl}
                       anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right'
-                      }}
-                      keepMounted
-                      transformOrigin={{
                         vertical: 'top',
                         horizontal: 'right'
                       }}

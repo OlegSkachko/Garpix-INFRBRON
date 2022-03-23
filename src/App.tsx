@@ -7,12 +7,14 @@ import Invite from './components/Invite/Invite'
 import BookingNotice from './components/BookingNotice/BookingNotice'
 import CustomAppBar from './components/AppBar/AppBar'
 import Offices from './components/Office/Offices'
+import Rooms from './components/Room/Rooms'
 
 const App = (): React.ReactElement => (
   <Routes>
     <Route path='/' element={<CustomAppBar />}>
       <Route index element={<>Главная</>} />
       <Route path='office' element={<Offices />} />
+      <Route path='rooms' element={<Rooms />} />
       <Route path='reserves' element={<AllBookings />} />
       <Route path='item-room' element={<ItemsRoom />} />
       <Route path='invite' element={<Invite />} />

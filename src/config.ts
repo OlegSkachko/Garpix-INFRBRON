@@ -7,5 +7,5 @@ export const runtimeConfig =
       : {
           // client
           // @ts-expect-error
-          API_URL: window?.env?.API_URL === undefined ? window?.env?.API_URL : ''
+          API_URL: window?.env?.API_URL === undefined ? window?.env?.API_URL : 'http://localhost:3000'
         }

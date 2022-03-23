@@ -3,16 +3,16 @@ import logo from './react.svg'
 import styles from './Home.module.scss'
 import { GxButton } from '@garpix/garpix-web-components-react'
 import { Link } from 'react-router-dom'
-import { useStoreon } from 'storeon/react'
+// import { useStoreon } from 'storeon/react'
 
 const Home = (): React.ReactElement => {
-  const { page } = useStoreon('page')
-  const title = page.data.page.init_state.object.title
+  // const { page } = useStoreon('page')
+  // const title = page.data.page.init_state.object.title
   return (
     <div className={styles.home}>
       <div className={styles['home-header']}>
         <img src={logo} className={styles['home-logo']} alt='logo' />
-        <h2>Welcome to {title}</h2>
+        {/* <h2>Welcome to {title}</h2> */}
       </div>
       <p className={styles['home-intro']}>
         To get started, edit <code>src/App.js</code> or{' '}

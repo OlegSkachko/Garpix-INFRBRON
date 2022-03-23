@@ -20,5 +20,5 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["src", "typings"]
+  "include": ["src", "typings", "src/test/index.test.js"]
 }

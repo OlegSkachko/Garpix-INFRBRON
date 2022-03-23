@@ -9,6 +9,7 @@ const PAGE_TYPES: { [key in PageModelType]: React.FC } = {
   MainPage: Home,
   500: () => <div>500</div>,
   404: () => <div>404</div>
+
 }
 
 const Combine = (props): React.ReactElement => {

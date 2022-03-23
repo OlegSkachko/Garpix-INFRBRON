@@ -6,6 +6,7 @@ module.exports = {
   transform: {
     '^.+\\.ts?$': 'ts-jest',
     '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.(js|jsx|ts|tsx|mjs)$': 'ts-jest',
     "node_modules/@garpix/fetcher/.+\\.(j|t)sx?$": "ts-jest",
     "node_modules/@garpix/garpix-web-components-react/.+\\.(j|t)sx?$": "ts-jest",
     "node_modules/@garpix/garpix-web-components/.+\\.(j|t)sx?$": "ts-jest",

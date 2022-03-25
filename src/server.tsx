@@ -60,7 +60,7 @@ server
       const componentStream = renderToNodeStream(
         <StoreContext.Provider value={store}>
           <StaticRouter location={req.url}>
-            <App context={context} />
+            <App />
           </StaticRouter>
         </StoreContext.Provider>
       )
@@ -75,7 +75,7 @@ server
             <StoreContext.Provider value={store}>
               <HelmetProvider context={helmetContext}>
                 <StaticRouter location={req.url}>
-                  <App context={context} />
+                  <App />
                 </StaticRouter>
               </HelmetProvider>
             </StoreContext.Provider>,

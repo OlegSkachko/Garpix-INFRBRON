@@ -1,5 +1,5 @@
-import { apiGarpix } from '@/api/ApiGarpix'
-import { apiItemRoom } from '@/api/apiItemRoom'
+
+import { apiItemRoom } from '@/api/ItemRoomApi'
 import React, { ChangeEvent, useRef, useState } from 'react'
 
 const NewItemRoom = () => {

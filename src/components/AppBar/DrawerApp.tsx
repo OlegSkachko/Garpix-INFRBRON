@@ -28,7 +28,12 @@ const DrawerApp = (props) => {
           <Box sx={{ width: 250 }} role='presentation'>
             <List>
               { navbar.map((el)=> (
-                <NavLink to={el.to} style={{ textDecoration: 'none' }} onClick={props.handleClose}>
+                <NavLink 
+                  key={el.primary}
+                  to={el.to} 
+                  style={{ textDecoration: 'none' }}
+                  onClick={props.handleClose}
+                >
                   <ListItem button>
                     <ListItemText primary={el.primary} />
                   </ListItem>

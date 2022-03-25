@@ -10,8 +10,8 @@ import MenuItem from '@mui/material/MenuItem'
 import Menu from '@mui/material/Menu'
 import DrawerApp from './DrawerApp'
 import { Outlet } from 'react-router-dom'
-import { apiGarpix } from '@/api/ApiGarpix'
-import AuthorizationForm from '../Authorization/AuthorizationForm'
+import AuthForm from '../Auth/AuthForm'
+import { apiAuth } from '@/api/AuthApi'
 
 const CustomAppBar: React.FC = () => {
   const [auth, setAuth] = useState<boolean>(true)
@@ -31,7 +31,7 @@ const CustomAppBar: React.FC = () => {
     setAnchorEl(null)
   }
   async function logout (): Promise<void> {
-    const status = await apiGarpix.logout()
+    const status = await apiAuth.logout()
     if (status === 200 || status === 400) {
       setAuth(false)
       localStorage.clear()
@@ -41,7 +41,7 @@ const CustomAppBar: React.FC = () => {
   return (
     <>
       {!auth
-        ? <AuthorizationForm />
+        ? <AuthForm />
         : <>
           <Box sx={{ flexGrow: 1 }}>
             <DrawerApp open={open} handleClose={() => setOpen(false)} />

@@ -1,23 +1,15 @@
-import { getPagesArray } from '@/helpers/pageHelper'
-import { IMyBookings } from '@/interfaces/Ibooking'
 import IPagination, { IUsePagTypes } from '@/interfaces/IPagination'
 import { useState, useEffect, useMemo, useRef } from 'react'
-import IItemsRoom from '@/interfaces/IItemsRoom'
 import useLoader from './useLoader'
-import { IOffice } from '@/interfaces/IOffice'
-import IRoom from '@/interfaces/IRoom'
+
 
 export default function usePagination (api: any, type?: string): IUsePagTypes {
-  const [size, setSize] = useState<number>(1)
-  const [pageNumber, setPageNumber] = useState<number>(1)
+  const [size, setSize] = useState<number>(3)
+  const [pageNumber, setPageNumber] = useState<number>(0)
   const [filter, setFilter] = useState<string>('title,asc')
-  const [arrayPages, setArrayPages] = useState<number[]>([1])
-  const [totalItems, setTotalItems] = useState<number>(1)
-  let data, setData
-  if (type = 'IRoom') [data, setData] = useState<IRoom[]>([])
-  if (type = 'IOffice') [data, setData] = useState<IOffice[]>([])
-  if (type = 'IMyBookings') [data, setData] = useState<IMyBookings[]>([])
-  if (type = 'IItemsRoom') [data, setData] = useState<IItemsRoom[]>([])
+  const [totalPages, setTotalPages] = useState<number>(0)
+  const [totalItems, setTotalItems] = useState<number>(0)
+  const [data, setData] = useState<any[]>([])
   const refTotal = useRef(null)
   const memoizedValue = useMemo(() => computePag(size, pageNumber, filter), [size, pageNumber, filter])
   const { isLoading, loadData } = useLoader(refresh, api, memoizedValue)
@@ -28,18 +20,18 @@ export default function usePagination (api: any, type?: string): IUsePagTypes {
 
   useEffect(() => {
     refresh().catch((e) => console.log(e))
-  }, [pageNumber, size, filter])
+  }, [pageNumber])
 
   async function refresh (): Promise<void> {
     const data = await loadData()
     setData(data?.result)
-    const arr = getPagesArray(data?.totalPages)
-    setArrayPages(arr)
+    setTotalPages(data?.totalPages)
     setTotalItems(data?.totalItems)
+    setPageNumber(0)
   }
 
   return {
-    arrayPages,
+    totalPages,
     setPageNumber,
     pageNumber,
     refTotal,

@@ -6,10 +6,15 @@ import IRoom from '@/interfaces/IRoom'
 import IUser, { IUsersBookings } from '@/interfaces/IUser'
 import axios from 'axios'
 
+const URL= 'https://gateway.garpixams.staging.garpix.com/booking/'
+
+const AUTH_URL ='https://gateway.garpixams.staging.garpix.com/auth/'
+
+
 class ApiGarpix {
   async auth (login: string, password: string): Promise<void> {
     await axios.post(
-      'http://auth.garpixams.staging.garpix.com/api/v1/login', {
+      `https://gateway.garpixams.staging.garpix.com/auth/login`, {
         username: `${login}`,
         password: `${password}`
       },
@@ -31,7 +36,7 @@ class ApiGarpix {
     console.log("refreshToken", refreshToken);
     
     await axios.post(
-      'http://auth.garpixams.staging.garpix.com/api/v1/refresh', {
+      `${AUTH_URL}refresh`, {
         refreshToken: `${refreshToken}`
       },
       {
@@ -51,7 +56,7 @@ class ApiGarpix {
   async logout (): Promise<any> {
     const refreshToken = localStorage.getItem('refresh_token') ?? ''
     const data = await axios.post(
-      'http://auth.garpixams.staging.garpix.com/api/v1/logout', {
+      `${AUTH_URL}logout`, {
         refreshToken: `${refreshToken}`
       },
       {
@@ -69,7 +74,7 @@ class ApiGarpix {
 
   async getOffice (pagination?: IPagination): Promise<IOffice[]> {
     const accessToken = localStorage.getItem('access_token') ?? ''
-    const offices = await axios.post('http://garpixams.staging.garpix.com/api/v1/offices/read',
+    const offices = await axios.post( `${URL}offices/read`,
       { ...pagination }
       ,
       {
@@ -85,7 +90,7 @@ class ApiGarpix {
 
   async createNewOffice (title: string, address: string): Promise<IOffice> {
     const accessToken = localStorage.getItem('access_token') ?? ''
-    const newOffice = await axios.post('http://garpixams.staging.garpix.com/api/v1/offices/create',
+    const newOffice = await axios.post('https://garpixams.staging.garpix.com/api/v1/offices/create',
       {
         title: `${title}`,
         address: `${address}`
@@ -102,7 +107,7 @@ class ApiGarpix {
 
   async getRooms (pagination?: IPagination): Promise<IRoom[]> {
     const accessToken = localStorage.getItem('access_token') ?? ''
-    const offices = await axios.post('http://garpixams.staging.garpix.com/api/v1/rooms/read',
+    const offices = await axios.post('https://garpixams.staging.garpix.com/api/v1/rooms/read',
       { ...pagination }
       ,
       {
@@ -118,7 +123,7 @@ class ApiGarpix {
 
   async createNewRoom(title: string, description: string, isActive: boolean, color:string): Promise<IRoom> {
     const accessToken = localStorage.getItem('access_token') ?? ''
-    const newRoom = await axios.post('http://garpixams.staging.garpix.com/api/v1/rooms/create',
+    const newRoom = await axios.post('https://garpixams.staging.garpix.com/api/v1/rooms/create',
       {
         title: `${title}`,
         description: `${description}`,
@@ -137,7 +142,7 @@ class ApiGarpix {
 
   async getBookings (pagination?: IPagination): Promise<IMyBookings[]> {
     const accessToken = localStorage.getItem('access_token') ?? ''
-    const bookings = await axios.post('http://garpixams.staging.garpix.com/api/v1/reserves/read',
+    const bookings = await axios.post('https://garpixams.staging.garpix.com/api/v1/reserves/read',
       { ...pagination }
       ,
       {
@@ -153,7 +158,7 @@ class ApiGarpix {
 
   async getItemsRoom (pagination?: IPagination): Promise<IItemsRoom[]> {
     const accessToken = localStorage.getItem('access_token') ?? ''
-    const itemsRoom = await axios.post('http://garpixams.staging.garpix.com/api/v1/room_items/read',
+    const itemsRoom = await axios.post('https://garpixams.staging.garpix.com/api/v1/room_items/read',
       { ...pagination }
       ,
       {
@@ -168,7 +173,7 @@ class ApiGarpix {
 
   async getUsers (): Promise<IUser[]> {
     const accessToken = localStorage.getItem('access_token') ?? ''
-    const users = await axios.post('http://auth.garpixams.staging.garpix.com/api/v1/users/read', {},
+    const users = await axios.post('https://auth.garpixams.staging.garpix.com/api/v1/users/read', {},
       {
         headers: {
           Authorization: `Bearer ${accessToken}`
@@ -187,7 +192,7 @@ class ApiGarpix {
 
   async createNewInvite (userId: string, bookingId: string): Promise<IItemsRoom> {
     const accessToken = localStorage.getItem('access_token') ?? ''
-    const itemsRoom = await axios.post('http://garpixams.staging.garpix.com/api/v1/invites/create',
+    const itemsRoom = await axios.post('https://garpixams.staging.garpix.com/api/v1/invites/create',
       {
         userId: `${userId}`,
         priority: 'HIGH',

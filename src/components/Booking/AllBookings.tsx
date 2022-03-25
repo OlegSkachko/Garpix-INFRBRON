@@ -1,15 +1,15 @@
 import React from 'react'
-import { apiGarpix } from '@/api/ApiGarpix'
 import { correctTime } from '../../helpers/timeHelper'
 import Icon from '../Icon/Icon'
 import Pagination from '../Pagination/Pagination'
 import usePagination from '@/hooks/usePagination'
 import { IUsePagTypes } from '@/interfaces/IPagination'
 import { Box, CircularProgress } from '@mui/material'
+import { apiBooking } from '@/api/BookingApi'
 
 const AllBookings: React.FC = () => {
   const {
-    arrayPages,
+    totalPages,
     setPageNumber,
     pageNumber,
     refTotal,
@@ -19,20 +19,20 @@ const AllBookings: React.FC = () => {
     isLoading,
     data,
     refresh
-  }: IUsePagTypes = usePagination(apiGarpix.getBookings, 'IMyBookings')
+  }: IUsePagTypes = usePagination(apiBooking.getBookings, 'IMyBookings')
 
   return (
     <div>
       <Pagination
-        arrayPages={arrayPages}
+        totalPages={totalPages}
         setPageNumber={(value) => setPageNumber(value)}
         pageNumber={pageNumber}
         refTotal={refTotal}
         totalItems={totalItems}
         amount={(e) => setSize(+e.target.value)}
         sort={(e) => setFilter(e.target.value)}
+        refresh={refresh}
       />
-      <button onClick={refresh}>обновить</button>
       <div>
         {isLoading &&
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>

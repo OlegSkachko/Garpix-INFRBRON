@@ -5,11 +5,19 @@ import IPagination from '@/interfaces/IPagination'
 import IRoom from '@/interfaces/IRoom'
 import IUser, { IUsersBookings } from '@/interfaces/IUser'
 import axios from 'axios'
+import { runtimeConfig } from '../config'
 
-class Api {
+const API_URL = runtimeConfig.API_URL
+
+class ItemRoomApi {
   
   async create(title: string, description: string, isActive: boolean, count:number, roomId:number): Promise<IRoom> {
     const accessToken = localStorage.getItem('access_token') ?? ''
+    try {
+
+    } catch(e) {
+      console.log(e);
+    }
     const newRoom = await axios.post('http://garpixams.staging.garpix.com/api/v1/room_items/create',
       {
         title: `${title}`,
@@ -30,6 +38,11 @@ class Api {
 
   async get(pagination?: IPagination): Promise<IItemsRoom[]> {
     const accessToken = localStorage.getItem('access_token') ?? ''
+    try {
+
+    } catch(e) {
+      console.log(e);
+    }
     const itemsRoom = await axios.post('http://garpixams.staging.garpix.com/api/v1/room_items/read',
       { ...pagination }
       ,
@@ -44,7 +57,7 @@ class Api {
   }
 }
 
-const apiItemRoom = new Api()
+const apiItemRoom = new ItemRoomApi()
 
 export {
     apiItemRoom

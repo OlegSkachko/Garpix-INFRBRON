@@ -1,4 +1,4 @@
-import { apiGarpix } from '@/api/ApiGarpix'
+import { apiItemRoom } from '@/api/ItemRoomApi'
 import useLoader from '@/hooks/useLoader'
 import usePagination from '@/hooks/usePagination'
 import IItemsRoom from '@/interfaces/IItemsRoom'
@@ -10,7 +10,7 @@ import NewItemRoom from './NewItemRoom'
 
 const ItemsRoom: React.FC = () => {
   const {
-    arrayPages,
+    totalPages,
     setPageNumber,
     pageNumber,
     refTotal,
@@ -20,22 +20,21 @@ const ItemsRoom: React.FC = () => {
     isLoading,
     data,
     refresh
-  }: IUsePagTypes = usePagination(apiGarpix.getItemsRoom, 'IItemsRoom')
+  }: IUsePagTypes = usePagination(apiItemRoom.get, 'IItemsRoom')
 console.log(totalItems);
 
   return (
     <div>
       <Pagination
-        arrayPages={arrayPages}
+        totalPages={totalPages}
         setPageNumber={(value) => setPageNumber(value)}
         pageNumber={pageNumber}
         refTotal={refTotal}
         totalItems={totalItems}
         amount={(e) => setSize(+e.target.value)}
         sort={(e) => setFilter(e.target.value)}
-        item
+        refresh={refresh}
       />
-      <button onClick={refresh}>обновить</button>
       <NewItemRoom/>
       <div>
         {isLoading &&

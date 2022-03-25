@@ -1,14 +1,22 @@
-import React from 'react'
-import { apiGarpix } from '@/api/ApiGarpix'
+import React, { useState } from 'react'
 import Pagination from '../Pagination/Pagination'
 import usePagination from '@/hooks/usePagination'
 import { IUsePagTypes } from '@/interfaces/IPagination'
-import { Box, CircularProgress } from '@mui/material'
+import { Box, Button, CircularProgress, } from '@mui/material'
+import ErrorMessage from '../SnackBars/ErrorMessage'
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 import NewRoom from './NewRoom'
+import { apiRoom } from '@/api/RoomApi'
 
 const Rooms: React.FC = () => {
+  const [progress, setProgress] = useState<string>('')
+  const [alert, setAlert] = useState<boolean>(false)
+
   const {
-    arrayPages,
+    totalPages,
     setPageNumber,
     pageNumber,
     refTotal,
@@ -17,38 +25,56 @@ const Rooms: React.FC = () => {
     setFilter,
     isLoading,
     data,
-    refresh
-  }: IUsePagTypes = usePagination(apiGarpix.getRooms, 'IRoom')
+    refresh,
+  }: IUsePagTypes = usePagination(apiRoom.get, 'IRoom')
+  
 
   return (
     <div>
       <Pagination
-        arrayPages={arrayPages}
+        totalPages={totalPages}
         setPageNumber={(value) => setPageNumber(value)}
         pageNumber={pageNumber}
         refTotal={refTotal}
         totalItems={totalItems}
         amount={(e) => setSize(+e.target.value)}
         sort={(e) => setFilter(e.target.value)}
+        refresh={refresh}
       />
-      <button onClick={refresh}>обновить</button>
-    <NewRoom ></NewRoom>
+    <ErrorMessage progress={progress} alert={alert} setAlert={setAlert}/>
+
       <div>
         {isLoading &&
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <CircularProgress />
           </Box>}
         {data.length < 1
-          ? <h2>на данный момент доступных комнат нет</h2>
+          ?  <Typography gutterBottom variant="h5" component="div">на данный момент доступных комнат нет</Typography>
           : data.map((room) => {
             return (
-            <fieldset key={room.id}>
-                <h3> {room?.title ?? "информация недоступна"}</h3>
-                <h3> {room?.description ?? "информация недоступна"}</h3>
-                <h3> Активна : {room?.isActive === true? "да": "нет"}</h3>
-                <h5>Офис: {room?.officeId?.title ?? "информация недоступна"}</h5>
-                <h5>Адрес: {room?.officeId?.address ?? "информация недоступна"}</h5>
-            </fieldset>
+            <Card key={room.id} sx={{ border: 1, borderColor: 'primary.main', borderRadius: 4, m: 1, h:100 }}>
+            <CardContent >
+              <Typography gutterBottom variant="h5" component="div">
+                {room?.title}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+               {room?.description}
+              </Typography>
+          <Typography variant="body2" color="text.secondary">
+               Активна : {room?.isActive === true? "да": "нет"}
+              </Typography>
+          <Typography variant="body2" color="text.secondary">
+              Офис: {room?.officeId?.title ?? "информация недоступна"}
+              </Typography>
+          <Typography variant="body2" color="text.secondary">
+               Адрес: {room?.officeId?.address ?? "информация недоступна"}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button size="small">редактировать</Button>
+              <Button size="small" variant="outlined">удалить</Button>
+            </CardActions>
+          </Card>
             )
           })}
       </div>

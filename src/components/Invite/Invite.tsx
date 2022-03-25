@@ -1,4 +1,5 @@
-import { apiGarpix } from '@/api/ApiGarpix'
+
+import { apiInvite } from '@/api/InviteApi'
 import { IMyBookings } from '@/interfaces/Ibooking'
 import IUser from '@/interfaces/IUser'
 import React, { ChangeEvent, useState } from 'react'
@@ -12,11 +13,12 @@ const Invite: React.FC = () => {
 
   async function getUsers (): Promise<void> {
     setIsLoading(true)
-    const { users, bookings } = await apiGarpix.getUsersAndBooking({
-      pageNumber: 1,
-      size: 10,
-      sort: ['title,asc']
-    })
+    
+    // const { users, bookings } = await apiGarpix.getUsersAndBooking({
+    //   pageNumber: 1,
+    //   size: 10,
+    //   sort: ['title,asc']
+    // })
     setIsLoading(false)
     setUsers(users)
     setBookings(bookings)
@@ -24,7 +26,7 @@ const Invite: React.FC = () => {
   }
 
   async function createInvitation (): Promise<void> {
-    const invite = await apiGarpix.createNewInvite(userId, bookingId)
+    const invite = await apiInvite.create(userId, bookingId)
     console.log(invite)
   }
 
